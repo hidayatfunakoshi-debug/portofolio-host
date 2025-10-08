@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portofolio — Muhammad Nur Hidayatullah</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --accent1: #2563eb;
+      --accent2: #7c3aed;
+      --accent3: #9333ea;
+      --muted: rgba(230,238,248,0.85);
+      --surface: rgba(255,255,255,0.05);
+      --radius: 16px;
+      --maxw: 1200px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', system-ui, Segoe UI, Roboto, Arial;
+      color: #e6eef8;
+      background: linear-gradient(135deg, #0a0a0a 0%, #111827 40%, #1e1b4b 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      line-height: 1.8;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 20% 30%, rgba(37,99,235,0.2), transparent 60%),
+                  radial-gradient(circle at 80% 70%, rgba(124,58,237,0.2), transparent 60%);
+      animation: moveGlow 12s ease-in-out infinite alternate;
+      z-index: -1;
+    }
+
+    @keyframes moveGlow {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-40px, 20px); }
+    }
+
+    nav {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 36px;
+      padding: 20px 80px;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    nav a {
+      color: #e6eef8;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 16px;
+      letter-spacing: 0.4px;
+      transition: color .3s ease;
+    }
+
+    nav a:hover { color: #a78bfa; }
+
+    /* Container lebih lega */
+    .container {
+      max-width: var(--maxw);
+      margin: 80px auto 100px;
+      padding: 80px 100px;
+      border-radius: 28px;
+      background: rgba(17,17,17,0.7);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+    }
+
+    .title-banner {
+      text-align: left;
+      margin-bottom: 50px;
+    }
+
+    .title-banner h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .title-banner .line {
+      height: 4px;
+      width: 180px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+      box-shadow: 0 0 18px rgba(139,92,246,0.5);
+    }
+
+    header {
+      display: flex;
+      gap: 60px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+
+    .avatar {
+      width: 460px;
+      height: 310px;
+      border-radius: 20px;
+      padding: 8px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      display: grid;
+      place-items: center;
+      transition: transform .4s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .avatar:hover { transform: scale(1.06) rotate(1deg); }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 3px solid rgba(255,255,255,0.1);
+      object-position: center top;
+    }
+
+    .intro { flex: 1; min-width: 260px; }
+
+    .name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .role { color: var(--muted); font-weight: 600; margin-bottom: 12px; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .chip {
+      background: rgba(255,255,255,0.06);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: background .25s;
+    }
+
+    .chip:hover { background: rgba(255,255,255,0.1); }
+
+    /* Layout utama */
+    .layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 70px;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; gap: 40px; }
+      .container { padding: 50px 30px; }
+      header { gap: 40px; margin-bottom: 40px; }
+    }
+
+    /* Card lebih lega */
+    .card {
+      background: var(--surface);
+      padding: 60px 70px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      transition: transform .3s, box-shadow .3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+    }
+
+    h3 {
+      margin-bottom: 24px;
+      font-size: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 18px;
+      font-size: 15px;
+    }
+
+    ul { margin-left: 18px; }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .skill-pill {
+      background: rgba(255,255,255,0.07);
+      padding: 9px 15px;
+      border-radius: 14px;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: transform .25s, background .25s;
+    }
+
+    .skill-pill:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="#beranda">Beranda</a>
+    <a href="portofolio.html">Portofolio</a>
+    <a href="images/Muhammad Nur Hidayatullah.pdf" download>Download CV</a>
+  </nav>
+
+  <div class="container" id="beranda">
+    <div class="title-banner">
+      <h1>MNH PORTOFOLIO</h1>
+      <div class="line"></div>
+    </div>
+
+    <header>
+      <div class="avatar"><img src="images/yat.jpg" alt="Foto Profil"></div>
+      <div class="intro">
+        <div class="name">Muhammad Nur Hidayatullah</div>
+        <div class="role">Mahasiswa D4 Teknik Multimedia & Jaringan</div>
+        <div class="chips">
+          <div class="chip">IT Support</div>
+          <div class="chip">Desain Grafis</div>
+          <div class="chip">Jaringan</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <main>
+        <section class="card">
+          <h3>Tentang Saya</h3>
+          <p>Saya adalah mahasiswa aktif di Politeknik Negeri Ujung Pandang, Jurusan Teknik Informatika dan Komputer Program Studi D4 Teknik Multimedia dan Jaringan. Terampil dengan perangkat keras komputer, menguasai Microsoft Office dan perangkat lunak editing seperti Adobe Illustrator. Mampu beradaptasi cepat, bekerja dalam tim, dan disiplin.</p>
+        </section>
+
+        <section class="card">
+          <h3>Keahlian</h3>
+          <div class="skills">
+            <div class="skill-pill">Perawatan Hardware</div>
+            <div class="skill-pill">Troubleshooting</div>
+            <div class="skill-pill">Adobe Illustrator</div>
+            <div class="skill-pill">Microsoft Office</div>
+            <div class="skill-pill">Pengolahan Data</div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h3>Pengalaman Magang</h3>
+          <p><strong>Puslatbang KMP Makassar (LAN RI)</strong> — Mei 2023 – Okt 2023</p>
+          <ul style="color:var(--muted)">
+            <li>Bagian manajemen Telematika: Perawatan komputer (Instalasi Windows, pergantian hardware) — 3 bulan</li>
+            <li>Bagian Opname stok barang dan persediaan - 1 bulan</li>
+            <li>Bagian Pengelolaan sistem kearsipan elektronik — 1 bulan</li>
+          </ul>
+        </section>
+      </main>
+
+      <aside>
+        <section class="card">
+          <h3>Ringkasan Singkat</h3>
+          <p>Mahasiswa D4 Teknik Multimedia & Jaringan dengan sertifikasi BNSP (Desainer Multimedia Madya). Pengalaman magang di bidang IT Support, pengelolaan stok, dan kearsipan elektronik.</p>
+        </section>
+
+        <section class="card">
+          <h3>Kemampuan</h3>
+          <ul style="color:var(--muted)">
+            <li>Perawatan komputer seperti instalasi Windows dan pergantian hardware</li>
+            <li>Perawatan ringan printer</li>
+            <li>Analisis dan pemecahan masalah pada komputer</li>
+            <li>Pengolahan data</li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

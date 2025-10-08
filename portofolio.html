@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio & Sertifikat</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0a0a0a 0%, #141414 50%, #1a1a1a 100%);
+      --surface: rgba(255, 255, 255, 0.04);
+      --accent: #2563eb;
+      --radius: 24px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      color: #f1f5f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 100px;
+    }
+
+    /* ===== NAVIGASI ===== */
+    nav {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 36px;
+      padding: 20px 80px;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    nav a {
+      color: #e6eef8;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 16px;
+      letter-spacing: 0.4px;
+      transition: color .3s ease;
+    }
+
+    nav a:hover {
+      color: #a78bfa;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      background: linear-gradient(90deg, #60a5fa, #2563eb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    .card {
+      background: var(--surface);
+      padding: 60px 70px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      width: 100%;
+      max-width: 1200px;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .card h3 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 30px;
+      color: #e0e6ed;
+      grid-column: 1 / -1;
+      text-align: center;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 28px;
+    }
+
+    .thumb {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .thumb:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.3s ease;
+    }
+
+    .thumb:hover img {
+      opacity: 0.9;
+    }
+
+    .tcap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+      color: #e6eef8;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 14px 16px;
+      text-align: center;
+      letter-spacing: 0.3px;
+      transition: background 0.3s ease;
+    }
+
+    .thumb:hover .tcap {
+      background: linear-gradient(to top, rgba(37,99,235,0.8), transparent);
+    }
+
+    .activities {
+      list-style: none;
+      line-height: 1.8;
+      font-size: 15px;
+      color: #cbd5e1;
+      padding-left: 0;
+    }
+
+    .activities li {
+      margin-bottom: 10px;
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid var(--accent);
+      padding: 10px 14px;
+      border-radius: 10px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .activities li:hover {
+      background: rgba(37,99,235,0.08);
+      transform: translateX(4px);
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 16px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.6);
+    }
+
+    .lightbox.active {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 40px;
+      right: 60px;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .close-btn:hover {
+      color: #60a5fa;
+    }
+
+    @media (max-width: 900px) {
+      .card {
+        grid-template-columns: 1fr;
+        padding: 40px 30px;
+      }
+      nav {
+        padding: 20px 30px;
+        gap: 20px;
+      }
+    }
+
+    /* ===== PROJECT CARD ===== */
+    .project-card {
+      background: var(--surface);
+      padding: 50px 60px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      width: 100%;
+      max-width: 1200px;
+      margin-bottom: 80px;
+    }
+
+    .project-card h3 {
+      font-size: 1.6rem;
+      text-align: center;
+      margin-bottom: 40px;
+      background: linear-gradient(90deg, #60a5fa, #2563eb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .project-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    .project-thumb {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-thumb:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    .project-thumb img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .p-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+      color: #e6eef8;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="porto.html">Beranda</a>
+    <a href="portofolio.html">Portofolio</a>
+    <a href="images/Muhammad Nur Hidayatullah.pdf" download>Download CV</a>
+  </nav>
+
+  <h1>Portofolio & Sertifikat</h1>
+
+  <section class="card">
+    <h3>Galeri Sertifikat & Sertifikasi</h3>
+    <div class="gallery">
+      <div class="thumb" data-src="images/imd.jpeg">
+        <img src="images/imd.jpeg" alt="Sertifikat IMD">
+        <div class="tcap">Sertifikasi IMD</div>
+      </div>
+      <div class="thumb" data-src="images/metronix.jpg">
+        <img src="images/metronix.jpg" alt="Sertifikat Metronix">
+        <div class="tcap">Sertifikasi CV Metronix</div>
+      </div>
+      <div class="thumb" data-src="images/literasi.jpg">
+        <img src="images/literasi.jpg" alt="Sertifikat Digital">
+        <div class="tcap">Literasi Digital</div>
+      </div>
+      <div class="thumb" data-src="images/vsga.jpeg">
+        <img src="images/vsga.png" alt="Sertifikat VSGA">
+        <div class="tcap">VSGA</div>
+      </div>
+      <div class="thumb" data-src="images/lan.jpeg">
+        <img src="images/lan.jpeg" alt="Sertifikat Magang">
+        <div class="tcap">Magang</div>
+      </div>
+      <div class="thumb" data-src="images/eir.jpeg">
+        <img src="images/eir.jpeg" alt="EIR">
+        <div class="tcap">EIR</div>
+      </div>
+    </div>
+
+    <ul class="activities">
+      <li>Aktif mengikuti seminar digital</li>
+      <li>Mengikuti sertifikasi keahlian</li>
+      <li>Keikutsertaan lomba <strong>Electro Invention Race 2023</strong> kategori cerdas cermat teknologi</li>
+      <li>Keikutsertaan lomba <strong>Wawasan Pancasila Pelajar Nusantara</strong> di event STARA FEST oleh RRI pada tahun 2022</li>
+      <li>Aktif pada event kantor dalam penyediaan infrastruktur acara pada saat magang di PUSLTABANG KMP LAN Makassar</li>
+      <li>IT Support pada saat magang</li>
+    </ul>
+  </section>
+
+  <section class="project-card">
+    <h3>Hasil Project</h3>
+    <div class="project-gallery">
+      <a href="https://www.figma.com/design/IkUhb5JrguUGFRh0D9iwqE/PROJECT-UI-UI-TUGAS-AKHIR?node-id=0-1&t=mXgiDIxp5zAdVgRt-1" target="_blank" class="project-thumb">
+        <img src="images/ta.jpg.png" alt="Project 1">
+        <div class="p-title">Project Desain UI-UX Sistem Tugas Akhir</div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=UADGzY_YLkI" target="_blank" class="project-thumb">
+        <img src="images/cemut.png" alt="Project 2">
+        <div class="p-title">Video Gula Semuts</div>
+      </a>
+      <a href="https://drive.google.com/drive/folders/1YydDewqx636LvN5tJLx7QIFHWyV3T40V?usp=sharing" target="_blank" class="project-thumb">
+        <img src="images/floridina.jpg" alt="Project 3">
+        <div class="p-title">Iklan floridina</div>
+      </a>
+      <a href="https://www.canva.com/design/DAGkfs6BtFQ/REviUspxJVac0_ecPE7Oaw/edit" target="_blank" class="project-thumb">
+        <img src="images/hms.jpg" alt="Project 4">
+        <div class="p-title">Mockup Project</div>
+      </a>
+      <a href="#" target="_blank" class="project-thumb">
+        <img src="images/baju.jpg" alt="Project 5">
+        <div class="p-title">Mockup Baju 1</div>
+      </a>
+      <a href="#" target="_blank" class="project-thumb">
+        <img src="images/topi.jpg" alt="Project 6">
+        <div class="p-title">Mockup Topi</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox">
+    <span class="close-btn" id="closeBtn">&times;</span>
+    <img src="" alt="Preview Sertifikat" id="lightbox-img">
+  </div>
+
+  <script>
+    const thumbs = document.querySelectorAll('.thumb');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.getElementById('closeBtn');
+
+    thumbs.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        const src = thumb.getAttribute('data-src');
+        lightboxImg.src = src;
+        lightbox.classList.add('active');
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+    });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>
